@@ -14,7 +14,6 @@ import com.dalong.refreshlayout.RefreshStatus;
 
 /**
  * 淘宝下拉刷新自定义头部
- * Created by zhouweilong on 2016/10/25.
  */
 
 public class TaoBaoHeader extends LinearLayout implements OnHeaderListener {
@@ -24,7 +23,6 @@ public class TaoBaoHeader extends LinearLayout implements OnHeaderListener {
     private TaoBaoView taobaoView;
     private TextView taobaoTv;
     private View taobaoHeader;
-
     public TaoBaoHeader(Context context) {
         super(context);
         taobaoHeader = LayoutInflater.from(context).inflate(R.layout.taobao_header, this, true);

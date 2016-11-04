@@ -16,44 +16,44 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private TaoBaoRefreshLayout refreshview;
-    public List<String> list=new ArrayList<>();
+    public List<String> list = new ArrayList<>();
     private ListView listview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initData();
-        refreshview=(TaoBaoRefreshLayout)findViewById(R.id.refreshview);
-        listview=(ListView)findViewById(R.id.listview);
-        listview.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, list));
+        refreshview = (TaoBaoRefreshLayout) findViewById(R.id.refreshview);
+        listview = (ListView) findViewById(R.id.listview);
+        listview.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list));
         refreshview.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mHandler.removeMessages(0);
-                mHandler.sendEmptyMessageDelayed(0,3000);
+                mHandler.sendEmptyMessageDelayed(0, 3000);
             }
 
             @Override
             public void onLoadMore() {
                 mHandler.removeMessages(1);
-                mHandler.sendEmptyMessageDelayed(1,3000);
+                mHandler.sendEmptyMessageDelayed(1, 3000);
             }
 
             @Override
             public void onLoadBottom() {
-                Intent intent=new Intent(MainActivity.this,IntentActivity.class);
+                Intent intent = new Intent(MainActivity.this, IntentActivity.class);
                 startActivity(intent);
             }
         });
 
     }
 
-    Handler mHandler= new Handler(){
+    Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     refreshview.stopRefresh(true);
                     break;
@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void initData(){
-        for (int i=0;i<14;i++){
-            list.add("测试的"+i);
+    public void initData() {
+        for (int i = 0; i < 14; i++) {
+            list.add("测试的" + i);
         }
     }
 }

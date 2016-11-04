@@ -11,11 +11,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by zhouweilong on 2016/10/25.
- */
-
-public class TaoBaoView  extends View{
+public class TaoBaoView extends View {
 
 
     //圆环进度颜色
@@ -31,10 +27,10 @@ public class TaoBaoView  extends View{
     private Bitmap ringImage;
 
     //中间X坐标
-    private int  centerX;
+    private int centerX;
 
     //中间Y坐标
-    private int  centerY;
+    private int centerY;
 
     //画笔
     private Paint mPaint;
@@ -52,30 +48,30 @@ public class TaoBaoView  extends View{
     private int radius;
 
     //是否显示图标
-    private boolean isShowIcon=true;
+    private boolean isShowIcon = true;
 
 
     public TaoBaoView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public TaoBaoView(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public TaoBaoView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray typedArray=context.obtainStyledAttributes(attrs,R.styleable.TaoBaoView);
-        ringProgressColor=typedArray.getColor(R.styleable.TaoBaoView_ringProgressColor, Color.GRAY);
-        ringWidth=typedArray.getDimension(R.styleable.TaoBaoView_ringWidth, 5);
-        ringMax=typedArray.getInteger(R.styleable.TaoBaoView_ringmax, 50);
-        ringImage= BitmapFactory.decodeResource(getResources(),typedArray.getResourceId(R.styleable.TaoBaoView_ringImage,0));
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TaoBaoView);
+        ringProgressColor = typedArray.getColor(R.styleable.TaoBaoView_ringProgressColor, Color.GRAY);
+        ringWidth = typedArray.getDimension(R.styleable.TaoBaoView_ringWidth, 5);
+        ringMax = typedArray.getInteger(R.styleable.TaoBaoView_ringmax, 50);
+        ringImage = BitmapFactory.decodeResource(getResources(), typedArray.getResourceId(R.styleable.TaoBaoView_ringImage, 0));
         init();
 
     }
 
     private void init() {
-        mPaint=new Paint();
+        mPaint = new Paint();
     }
 
 
@@ -83,25 +79,25 @@ public class TaoBaoView  extends View{
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int widthMode=MeasureSpec.getMode(widthMeasureSpec);
-        int widthSize=MeasureSpec.getSize(widthMeasureSpec);
-        int heightMode=MeasureSpec.getMode(heightMeasureSpec);
-        int heightSize=MeasureSpec.getSize(heightMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
-        if(widthMode==MeasureSpec.AT_MOST)width=dp2px(30);
-        else width=widthSize;
-        if(heightMode==MeasureSpec.AT_MOST)height=dp2px(30);
-        else height=heightSize;
-        setMeasuredDimension(width,height);
+        if (widthMode == MeasureSpec.AT_MOST) width = dp2px(30);
+        else width = widthSize;
+        if (heightMode == MeasureSpec.AT_MOST) height = dp2px(30);
+        else height = heightSize;
+        setMeasuredDimension(width, height);
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         //获取中心点的位置
-        centerX=getWidth()/2;
-        centerY=getHeight()/2;
-        radius=(int) (centerX - ringWidth / 2);
+        centerX = getWidth() / 2;
+        centerY = getHeight() / 2;
+        radius = (int) (centerX - ringWidth / 2);
     }
 
 
@@ -123,15 +119,17 @@ public class TaoBaoView  extends View{
 
     /**
      * 绘制图片
+     *
      * @param canvas
      */
     private void drawImage(Canvas canvas) {
-        if(isShowIcon)
-        canvas.drawBitmap(ringImage,centerX-ringImage.getWidth()/2,centerY-ringImage.getHeight()/2,mPaint);
+        if (isShowIcon)
+            canvas.drawBitmap(ringImage, centerX - ringImage.getWidth() / 2, centerY - ringImage.getHeight() / 2, mPaint);
     }
 
     /**
      * 绘制进度条
+     *
      * @param canvas
      */
     private void drawProgress(Canvas canvas) {
@@ -141,18 +139,19 @@ public class TaoBaoView  extends View{
         mPaint.setStrokeWidth(ringWidth);
         //设置画笔样式
         mPaint.setStyle(Paint.Style.STROKE);
-        RectF rectF=new RectF(centerX-radius,centerY-radius,centerX+radius,centerY+radius);
+        RectF rectF = new RectF(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
         //绘制圆弧
-        canvas.drawArc(rectF,-110,-360*progress/ringMax,false,mPaint);
+        canvas.drawArc(rectF, -110, -360 * progress / ringMax, false, mPaint);
     }
 
 
     /**
      * dp转px
+     *
      * @param dp
      * @return
      */
-    public int dp2px(int dp){
+    public int dp2px(int dp) {
         float density = getContext().getResources().getDisplayMetrics().density;
         return (int) (dp * density + 0.5f);
     }
@@ -160,25 +159,27 @@ public class TaoBaoView  extends View{
 
     /**
      * 设置进度
+     *
      * @param progress
      */
-    public  synchronized  void setProgress(int progress){
-        if(progress<0){
-            progress=0;
+    public synchronized void setProgress(int progress) {
+        if (progress < 0) {
+            progress = 0;
         }
-        if(progress>=ringMax){
-            progress=ringMax;
+        if (progress >= ringMax) {
+            progress = ringMax;
         }
-        this.progress=progress;
+        this.progress = progress;
         postInvalidate();
     }
 
 
     /**
      * 设置是否显示图标
+     *
      * @param isShow
      */
-    public  synchronized  void setIsShowIcon(boolean isShow){
-        this.isShowIcon=isShow;
+    public synchronized void setIsShowIcon(boolean isShow) {
+        this.isShowIcon = isShow;
     }
 }
