@@ -31,6 +31,8 @@ public class RefreshLayout extends RefreshInterceptLauyout {
     public boolean isLoading = false;
     //正在刷新中
     public boolean isRefreshing = false;
+    //正在加载布局中
+    public boolean isBottom = false;
     //是否自动下拉刷新
     private boolean isAutoRefresh = false;
     private Context context;
@@ -142,7 +144,7 @@ public class RefreshLayout extends RefreshInterceptLauyout {
                 int dy = y - lastYMove;
                 // 如果getScrollY<0，即下拉操作
                 if (getScrollY() <= 0) {
-                    if (header != null && !isLoading && !isRefreshing) {
+                    if (header != null && !isLoading && !isRefreshing && !isBottom) {
                         // 进行Y轴上的滑动
                         performScroll(dy);
                         if (Math.abs(getScrollY()) <= headerContent.getMeasuredHeight()) {
@@ -185,7 +187,7 @@ public class RefreshLayout extends RefreshInterceptLauyout {
                         break;
                     //加载布局
                     case REFRESH_BUJU:
-                        scrolltoBottomStatus();
+                        if (!isBottom) scrolltoBottomStatus();
                         break;
                     //上拉加载更多
                     case LOAD_BEFORE:
@@ -281,6 +283,7 @@ public class RefreshLayout extends RefreshInterceptLauyout {
     private void onDefault() {
         isRefreshSuccess = false;
         isLoadSuccess = false;
+        isBottom = false;
     }
 
     /**
@@ -349,6 +352,7 @@ public class RefreshLayout extends RefreshInterceptLauyout {
      * 滚动到底部
      */
     private void scrolltoBottomStatus() {
+        isBottom = true;
         int start = getScrollY();
         int end = - header.getHeight() ;
         performAnim(start, end, new AnimListener() {
@@ -359,7 +363,7 @@ public class RefreshLayout extends RefreshInterceptLauyout {
             @Override
             public void onEnd() {
                 mHandler.sendEmptyMessageDelayed(0, 3000);
-                mHandler.sendEmptyMessageDelayed(1, 4000);
+                mHandler.sendEmptyMessageDelayed(1, 3500);
             }
         });
     }
