@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:background="@mipmap/tiao"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:id="@+id/imageView" />
+
+    <LinearLayout
+        android:id="@+id/refresh_header_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <com.dalong.taobaorefresh.TaoBaoView
+            android:id="@+id/taobao_view_header"
+            app:ringWidth="1dp"
+            app:ringmax="100"
+            app:ringImage="@mipmap/jiantou"
+            app:ringProgressColor="@android:color/darker_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_header"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/taobao_tv_chan"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下拉进入双十一，剁手节"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
