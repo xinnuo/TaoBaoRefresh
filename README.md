@@ -5,7 +5,7 @@
 
 
 ##效果图
-![image](https://github.com/dalong982242260/TaoBaoRefresh/blob/master/gif/taobao.gif?raw=true)
+![image](https://github.com/xinnuo/TaoBaoRefresh/blob/master/gif/taobao.gif?raw=true)
 
 ##使用
 
